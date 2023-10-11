@@ -15,6 +15,16 @@ namespace avto
         private double skorost;
         private double probeg;
 
+        public Avto(string nom, double bak, double ras)
+        {
+            nomerAvto = nom;
+            kolichestvoBenzina = bak;
+            rashodTopliva = ras;
+            ostatokTopliva = bak;
+            skorost = 0.0;
+            probeg = 0.0;
+        }
+
         public void Info(string nom, double bak, double ras)
         {
             nomerAvto = nom;
@@ -122,6 +132,15 @@ namespace avto
         private void proydennoerast(int distance)
         {
             this.probeg += distance;
+        }
+
+        public bool CheckCollision(int roadDistance, double totalDistance)
+        {
+            if (totalDistance >= roadDistance)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

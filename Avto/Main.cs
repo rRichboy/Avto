@@ -4,31 +4,14 @@
     {
         static void Main(string[] args)
         {
-            Avto avto1 = new Avto();
-            Avto avto2 = new Avto();
+            Avto avto1 = new Avto("Car1", 50.0, 10.0);
+            Avto avto2 = new Avto("Car2", 50.0, 10.0);
 
-            Console.Write("Введите номер первого авто: ");
-            string nomer = Console.ReadLine();
+            Console.Write("Введите расстояние дороги (в км): ");
+            int roadDistance = int.Parse(Console.ReadLine());
+            double totalDistance = 0;
 
-            Console.Write("Введите количество бензина в баке (в литрах): ");
-            double bak = double.Parse(Console.ReadLine());
-
-            Console.Write("Введите расход топлива на 100 км (в л/100км): ");
-            double ras = double.Parse(Console.ReadLine());
-
-            Console.Write("Введите номер второго авто: ");
-            string nomer2 = Console.ReadLine();
-
-            Console.Write("Введите количество бензина в баке второго авто (в литрах): ");
-            double bak2 = double.Parse(Console.ReadLine());
-
-            Console.Write("Введите расход топлива на 100 км второго авто (в л/100км): ");
-            double ras2 = double.Parse(Console.ReadLine());
-
-            avto1.Info(nomer, bak, ras);
-            avto2.Info(nomer2, bak2, ras2);
-
-            while (true)
+            while (totalDistance < roadDistance)
             {
                 Console.WriteLine("Выберите машину (1 или 2):");
                 int carChoice = int.Parse(Console.ReadLine());
@@ -66,6 +49,7 @@
                         Console.Write("Введите расстояние: ");
                         int distance = int.Parse(Console.ReadLine());
                         selectedCar.Move(speed, distance);
+                        totalDistance += distance;
                         break;
 
                     case 2:
@@ -95,6 +79,12 @@
                     default:
                         Console.WriteLine("Неверный выбор. Повторите попытку.");
                         break;
+                }
+
+                if (selectedCar.CheckCollision(roadDistance, totalDistance))
+                {
+                    Console.WriteLine("Авария!");
+                    return;
                 }
             }
         }
