@@ -5,8 +5,9 @@
         static void Main(string[] args)
         {
             Avto avto1 = new Avto();
+            Avto avto2 = new Avto();
 
-            Console.Write("Введите номер авто: ");
+            Console.Write("Введите номер первого авто: ");
             string nomer = Console.ReadLine();
 
             Console.Write("Введите количество бензина в баке (в литрах): ");
@@ -15,11 +16,40 @@
             Console.Write("Введите расход топлива на 100 км (в л/100км): ");
             double ras = double.Parse(Console.ReadLine());
 
+            Console.Write("Введите номер второго авто: ");
+            string nomer2 = Console.ReadLine();
+
+            Console.Write("Введите количество бензина в баке второго авто (в литрах): ");
+            double bak2 = double.Parse(Console.ReadLine());
+
+            Console.Write("Введите расход топлива на 100 км второго авто (в л/100км): ");
+            double ras2 = double.Parse(Console.ReadLine());
+
             avto1.Info(nomer, bak, ras);
+            avto2.Info(nomer2, bak2, ras2);
 
             while (true)
             {
-                Console.WriteLine("Выберите действие:");
+                Console.WriteLine("Выберите машину (1 или 2):");
+                int carChoice = int.Parse(Console.ReadLine());
+
+                Avto selectedCar;
+
+                if (carChoice == 1)
+                {
+                    selectedCar = avto1;
+                }
+                else if (carChoice == 2)
+                {
+                    selectedCar = avto2;
+                }
+                else
+                {
+                    Console.WriteLine("Неверный выбор машины. Повторите попытку.");
+                    continue;
+                }
+
+                Console.WriteLine("Выберите действие для машины " + carChoice + ":");
                 Console.WriteLine("1 - Поехать");
                 Console.WriteLine("2 - Разогнать автомобиль");
                 Console.WriteLine("3 - Тормозить");
@@ -35,27 +65,27 @@
                         int speed = int.Parse(Console.ReadLine());
                         Console.Write("Введите расстояние: ");
                         int distance = int.Parse(Console.ReadLine());
-                        avto1.Move(speed, distance);
+                        selectedCar.Move(speed, distance);
                         break;
 
                     case 2:
                         Console.Write("Введите скорость для разгона (в км/ч): ");
                         int additionalSpeed = int.Parse(Console.ReadLine());
-                        avto1.Razgon(additionalSpeed);
+                        selectedCar.Razgon(additionalSpeed);
                         break;
 
                     case 3:
-                        avto1.Tormozhenie();
+                        selectedCar.Tormozhenie();
                         break;
 
                     case 4:
                         Console.Write("Введите количество бензина для заправки (в литрах): ");
                         double top = double.Parse(Console.ReadLine());
-                        avto1.Zapravka(top);
+                        selectedCar.Zapravka(top);
                         break;
 
                     case 5:
-                        avto1.Out();
+                        selectedCar.Out();
                         break;
 
                     case 6:
